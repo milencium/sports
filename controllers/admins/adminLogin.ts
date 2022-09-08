@@ -24,12 +24,12 @@ export async function adminLogin(req: any, res: any) {
         if (!validPassword)
             return res.status(401).send({ message: "Invalid password!" })
 
-        //const token = admin.generateAuthToken(admin)
+        const token = admin.generateAuthToken(admin)
 
         res.status(200).send({
             adminId: admin._id,
             adminName: admin.username,
-            //token: token,
+            token: token,
             message: "Logged in succesfully",
         })
     } catch (error: any) {

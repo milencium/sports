@@ -4,6 +4,7 @@ import express, { json } from "express";
 import userRoutes from "./routes/userRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import sportsRoutes from "./routes/sportsRoutes";
+import reservationRoutes from "./routes/reservationRoutes";
 //connection
 const app = express();
 const port = process.env.PORT || 3001;
@@ -16,6 +17,7 @@ app.use(json());
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/sports", sportsRoutes);
+app.use("/api/reservations", reservationRoutes);
 
 const start = async () => {
     try {
