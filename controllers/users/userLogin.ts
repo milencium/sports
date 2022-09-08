@@ -23,11 +23,11 @@ export async function userLogin(req: any, res: any) {
         if (!user.access) {
             return res.status(401).send({ message: "Access denied" });
         }
-        //const token = user.generateAuthToken(user);
+        const token = user.generateAuthToken(user);
 
         res.status(200).send({
             user: user,
-            //token//: token,
+            token: token,
             message: "Logged in succesfully",
         })
     } catch (err: any) {

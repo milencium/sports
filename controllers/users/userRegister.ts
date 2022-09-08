@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 dotenv.config();
 
+import nodemailer from "nodemailer";
+
 export async function userRegister(req: any, res: any) {
     try {
         let userData = {
@@ -36,6 +38,25 @@ export async function userRegister(req: any, res: any) {
         console.log(err);
         res.status(500).json({ message: err.message });
     }
+    //sending mail
+    let testAccount = await nodemailer.createTestAccount();
+    let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: testAccount.user, // generated ethereal user
+            password: testAccount.password, // generated ethereal password
+        },
+    });
+    let info = await transporter.sendMail({
+        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        to: req.user.mail, // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Welcome to the sports complex", // plain text body
+        html: "<b>Welcome to the sports complex</b>", // html body
+    });
+    console.log(info);
 }
 
 const validate = (data: any) => {
